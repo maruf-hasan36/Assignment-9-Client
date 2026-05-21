@@ -11,7 +11,7 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <div className="px-4 pt-4 lg:px-8">
+    <div className="px-4 pt-4 lg:px-10">
       <Swiper
         pagination={{
           clickable: true,
