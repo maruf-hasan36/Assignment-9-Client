@@ -8,170 +8,146 @@ import "swiper/css/pagination";
 
 import { Pagination, Autoplay } from "swiper/modules";
 import Image from "next/image";
+import Link from "next/link";
+
+const slides = [
+  {
+    image:
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1600&auto=format&fit=crop",
+    badge: "Creative Innovation",
+    title1: "Build The",
+    title2: "Future Ideas",
+    desc: "Discover startup concepts, collaborate with creators, and transform imagination into reality.",
+    btn1: "Explore Ideas",
+    btn2: "Start Journey",
+  },
+
+  {
+    image:
+      "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?q=80&w=1600&auto=format&fit=crop",
+    badge: "Next Generation Platform",
+    title1: "Share Your",
+    title2: "Big Vision",
+    desc: "Connect with innovators worldwide and create impactful digital experiences together.",
+    btn1: "Get Started",
+    btn2: "Learn More",
+  },
+
+  {
+    image:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop",
+    badge: "AI & Technology",
+    title1: "Turn Ideas",
+    title2: "Into Reality",
+    desc: "Explore powerful tools and modern technology to launch your next big startup idea.",
+    btn1: "Explore Now",
+    btn2: "View Projects",
+  },
+];
 
 const Hero = () => {
   return (
-    <div className="px-4 pt-4 lg:px-10">
+    <div className="px-4 lg:px-8 pt-6">
       <Swiper
         pagination={{
           clickable: true,
         }}
         autoplay={{
-          delay: 2000,
+          delay: 3500,
           disableOnInteraction: false,
         }}
         modules={[Pagination, Autoplay]}
-        className="overflow-hidden rounded-2xl"
+        className="rounded-[2rem] overflow-hidden"
       >
-        {/* Slide 1 */}
-        <SwiperSlide>
-          <div className="relative h-[400px] w-full overflow-hidden rounded-2xl">
-            <Image
-              src="https://www.google.com/url?sa=t&source=web&rct=j&url=https%3A%2F%2Fwww.vecteezy.com%2Ffree-photos%2Fpc-setup&ved=0CBYQjRxqFwoTCMi8ldDgypQDFQAAAAAdAAAAABAF&opi=89978449"
-              alt="Startup"
-              fill
-              className="object-cover"
-            />
+        {slides.map((slide, index) => (
+          <SwiperSlide key={index}>
+            <div className="relative h-[520px] lg:h-[650px] w-full overflow-hidden rounded-[2rem]">
+              {/* Background Image */}
+              <Image
+                src={slide.image}
+                alt="Hero Banner"
+                fill
+                priority
+                className="object-cover scale-105"
+              />
 
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#050816]/95 via-[#050816]/70 to-transparent" />
+              {/* Dark Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#020617]/95 via-[#020617]/70 to-[#020617]/20" />
 
-            {/* Glow */}
-            <div className="absolute left-10 top-10 h-44 w-44 rounded-full bg-violet-600/30 blur-[90px]" />
+              {/* Glow Effects */}
+              <div className="absolute left-10 top-16 h-52 w-52 rounded-full bg-cyan-500/20 blur-[120px]" />
 
-            {/* Content */}
-            <div className="absolute inset-0 flex items-center">
-              <div className="max-w-2xl px-6 lg:px-14">
-                <span className="rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-1 text-xs font-medium text-cyan-300 backdrop-blur-xl">
-                  Startup Innovation
-                </span>
+              <div className="absolute bottom-10 right-10 h-52 w-52 rounded-full bg-violet-500/20 blur-[120px]" />
 
-                <h1 className="mt-4 text-3xl font-black leading-tight text-white lg:text-5xl">
-                  Share Ideas.
-                  <br />
-                  Build The
-                  <span className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">
-                    {" "}
-                    Future
-                  </span>
-                </h1>
+              {/* Content */}
+              <div className="absolute inset-0 flex items-center">
+                <div className="max-w-3xl px-6 lg:px-16">
+                  {/* Badge */}
+                  <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2 backdrop-blur-xl">
+                    <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
 
-                <p className="mt-4 max-w-lg text-sm leading-7 text-gray-300 lg:text-base">
-                  Discover innovative startup ideas and collaborate with
-                  creators around the world.
-                </p>
+                    <span className="text-xs font-medium tracking-wide text-cyan-200 uppercase">
+                      {slide.badge}
+                    </span>
+                  </div>
 
-                <div className="mt-6 flex flex-wrap gap-4">
-                  <button className="rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:scale-105">
-                    Explore Ideas
-                  </button>
+                  {/* Heading */}
+                  <h1 className="mt-6 text-4xl md:text-5xl lg:text-7xl font-black leading-[1.1] text-white">
+                    {slide.title1}
+                    <br />
 
-                  <button className="rounded-xl border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-xl transition duration-300 hover:bg-white/10">
-                    Submit Idea
-                  </button>
+                    <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-violet-400 bg-clip-text text-transparent">
+                      {slide.title2}
+                    </span>
+                  </h1>
+
+                  {/* Description */}
+                  <p className="mt-6 max-w-2xl text-sm md:text-base lg:text-lg leading-8 text-slate-300">
+                    {slide.desc}
+                  </p>
+
+                  {/* Buttons */}
+                  <div className="mt-10 flex flex-wrap items-center gap-4">
+                    <Link
+                      href="/ideas"
+                      className="rounded-2xl bg-white px-7 py-3 text-sm font-semibold text-black transition duration-300 hover:scale-105"
+                    >
+                      {slide.btn1}
+                    </Link>
+
+                    <Link
+                      href="/add-idea"
+                      className="rounded-2xl border border-white/15 bg-white/5 px-7 py-3 text-sm font-semibold text-white backdrop-blur-xl transition duration-300 hover:bg-white/10"
+                    >
+                      {slide.btn2}
+                    </Link>
+                  </div>
+
+                  {/* Stats */}
+                  <div className="mt-12 flex flex-wrap gap-8">
+                    <div>
+                      <h2 className="text-3xl font-black text-white">10K+</h2>
+                      <p className="text-sm text-slate-400">Active Creators</p>
+                    </div>
+
+                    <div>
+                      <h2 className="text-3xl font-black text-white">25K+</h2>
+                      <p className="text-sm text-slate-400">Startup Ideas</p>
+                    </div>
+
+                    <div>
+                      <h2 className="text-3xl font-black text-white">150+</h2>
+                      <p className="text-sm text-slate-400">Global Partners</p>
+                    </div>
+                  </div>
                 </div>
               </div>
+
+              {/* Bottom Blur */}
+              <div className="absolute bottom-0 left-0 h-40 w-full bg-gradient-to-t from-[#020617] to-transparent" />
             </div>
-          </div>
-        </SwiperSlide>
-
-        {/* Slide 2 */}
-        <SwiperSlide>
-          <div className="relative h-[400px] w-full overflow-hidden rounded-2xl">
-            <Image
-              src="https://cdn.pixabay.com/photo/2020/06/04/11/10/bulb-5258341_1280.jpg"
-              alt="Ideas"
-              fill
-              className="object-cover"
-            />
-
-            <div className="absolute inset-0 bg-gradient-to-r from-[#050816]/95 via-[#050816]/70 to-transparent" />
-
-            <div className="absolute left-10 top-10 h-44 w-44 rounded-full bg-cyan-500/30 blur-[90px]" />
-
-            <div className="absolute inset-0 flex items-center">
-              <div className="max-w-2xl px-6 lg:px-14">
-                <span className="rounded-full border border-violet-400/30 bg-violet-500/10 px-4 py-1 text-xs font-medium text-violet-300 backdrop-blur-xl">
-                  Creative Concepts
-                </span>
-
-                <h1 className="mt-4 text-3xl font-black leading-tight text-white lg:text-5xl">
-                  Transform Ideas
-                  <br />
-                  Into
-                  <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
-                    {" "}
-                    Reality
-                  </span>
-                </h1>
-
-                <p className="mt-4 max-w-lg text-sm leading-7 text-gray-300 lg:text-base">
-                  Connect with innovators and build impactful startup projects
-                  together.
-                </p>
-
-                <div className="mt-6 flex flex-wrap gap-4">
-                  <button className="rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:scale-105">
-                    Get Started
-                  </button>
-
-                  <button className="rounded-xl border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-xl transition duration-300 hover:bg-white/10">
-                    Learn More
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </SwiperSlide>
-
-        {/* Slide 3 */}
-        <SwiperSlide>
-          <div className="relative h-[400px] w-full overflow-hidden rounded-2xl">
-            <Image
-              src="https://cdn.pixabay.com/photo/2017/07/07/16/49/share-2482016_1280.jpg"
-              alt="AI"
-              fill
-              className="object-cover"
-            />
-
-            <div className="absolute inset-0 bg-gradient-to-r from-[#050816]/95 via-[#050816]/70 to-transparent" />
-
-            <div className="absolute left-10 top-10 h-44 w-44 rounded-full bg-pink-500/30 blur-[90px]" />
-
-            <div className="absolute inset-0 flex items-center">
-              <div className="max-w-2xl px-6 lg:px-14">
-                <span className="rounded-full border border-pink-400/30 bg-pink-500/10 px-4 py-1 text-xs font-medium text-pink-300 backdrop-blur-xl">
-                  AI Innovation
-                </span>
-
-                <h1 className="mt-4 text-3xl font-black leading-tight text-white lg:text-5xl">
-                  Discover The
-                  <br />
-                  Next Big
-                  <span className="bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">
-                    {" "}
-                    Startup
-                  </span>
-                </h1>
-
-                <p className="mt-4 max-w-lg text-sm leading-7 text-gray-300 lg:text-base">
-                  Explore trending startup concepts powered by creativity and
-                  technology.
-                </p>
-
-                <div className="mt-6 flex flex-wrap gap-4">
-                  <button className="rounded-xl bg-gradient-to-r from-pink-500 to-cyan-500 px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:scale-105">
-                    Explore Now
-                  </button>
-
-                  <button className="rounded-xl border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-xl transition duration-300 hover:bg-white/10">
-                    View Ideas
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </SwiperSlide>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );
