@@ -2,11 +2,17 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Avatar, Switch } from "@heroui/react";
+import { Avatar } from "@heroui/react";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
-import { FaBars, FaMoon, FaSun, FaTimes } from "react-icons/fa";
+import {
+  FaBars,
+  FaTimes,
+  FaPlus,
+  FaLightbulb,
+  FaUserAstronaut,
+} from "react-icons/fa";
 import ThemeToggler from "@/lib/ThemeToggler";
 
 const NavbarPage = () => {
@@ -19,13 +25,12 @@ const NavbarPage = () => {
   const { data: session } = authClient.useSession?.() || {};
   const user = session?.user;
 
-
   const menuItems = [
-    { path: "/", label: "Home", auth: false },
-    { path: "/ideas", label: "Ideas", auth: false },
+    { path: "/", label: "Home" },
+    { path: "/ideas", label: "Ideas" },
     { path: "/add-idea", label: "Add Idea", auth: true },
     { path: "/my-ideas", label: "My Ideas", auth: true },
-    { path: "/my-interactions", label: "My Interactions", auth: true },
+    { path: "/my-interactions", label: "Interactions", auth: true },
   ];
 
   const handleLogout = async () => {
@@ -34,162 +39,197 @@ const NavbarPage = () => {
     setOpen(false);
     setMobileMenu(false);
 
-    toast.success("Logout successfully");
+    toast.success("Logout successful");
     router.push("/");
   };
 
   return (
-    <nav className="w-full sticky top-0 z-50 bg-[#020817]/80 backdrop-blur-2xl border-b border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
-      <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center gap-3">
-            <ThemeToggler></ThemeToggler>
-          <div>
-            <h1 className="text-xl lg:text-2xl font-extrabold bg-gradient-to-r from-violet-400 via-fuchsia-400 to-blue-400 bg-clip-text text-transparent">
-              IdeaVault
-            </h1>
+    <header className="fixed left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl">
+      <nav className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#060816]/70 backdrop-blur-2xl shadow-[0_10px_60px_rgba(0,0,0,0.45)]">
+        {/* Glow */}
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-blue-500/5 to-violet-500/5 pointer-events-none" />
 
-            <p className="text-[9px] lg:text-[10px] uppercase tracking-[3px] lg:tracking-[4px] text-slate-500">
-              Creative Platform
-            </p>
-          </div>
-        </div>
-
-        {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-2 rounded-full backdrop-blur-xl">
-          {menuItems
-            .filter((item) => (item.auth ? user : true))
-            .map((item) => (
-              <Link
-                key={item.path}
-                href={item.path}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  pathname === item.path
-                    ? "bg-gradient-to-r from-violet-600 to-blue-600 text-white shadow-lg"
-                    : "text-slate-300 hover:bg-violet-500/10 hover:text-violet-400"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-        </div>
-
-        {/* Right Side */}
-        <div className="flex items-center gap-3 relative">
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenu(!mobileMenu)}
-            className="lg:hidden text-white text-xl"
-          >
-            {mobileMenu ? <FaTimes /> : <FaBars />}
-          </button>
-
-          {/* USER LOGGED IN */}
-          {user ? (
-            <div className="relative">
-              <div
-                onClick={() => setOpen(!open)}
-                className="p-[2px] rounded-full bg-gradient-to-r from-violet-500 to-blue-500 cursor-pointer"
-              >
-                <Avatar className="w-10 h-10 lg:w-11 lg:h-11 border-2 border-[#020817]">
-                  <Avatar.Image
-                    alt="User"
-                    src={
-                      user?.image ||
-                      "https://img.heroui.chat/image/avatar?w=200&h=200&u=3"
-                    }
-                  />
-
-                  <Avatar.Fallback>U</Avatar.Fallback>
-                </Avatar>
-              </div>
-
-              {/* Dropdown */}
-              {open && (
-                <div className="absolute right-0 mt-3 w-44 bg-[#0b1020] border border-white/10 rounded-xl shadow-lg overflow-hidden">
-                  <Link
-                    href="/profile"
-                    onClick={() => setOpen(false)}
-                    className="block px-4 py-2 text-sm text-slate-200 hover:bg-white/10"
-                  >
-                    Profile
-                  </Link>
-
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-white/10"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
+        <div className="relative px-5 lg:px-8 py-4 flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+              <FaLightbulb className="text-black text-lg" />
             </div>
-          ) : (
-            /* USER NOT LOGGED IN */
-            <div className="hidden sm:flex items-center gap-2">
-              <Link
-                href="/login"
-                className="px-4 py-2 text-sm rounded-full bg-white/5 border border-white/10 text-slate-200 hover:bg-violet-500/10"
-              >
-                Login
-              </Link>
 
-              <Link
-                href="/register"
-                className="px-4 py-2 text-sm rounded-full bg-gradient-to-r from-violet-600 to-blue-600 text-white"
-              >
-                Register
-              </Link>
+            <div>
+              <h1 className="text-xl lg:text-2xl font-black tracking-tight text-white">
+                IdeaVault
+              </h1>
+
+              <p className="text-[10px] uppercase tracking-[4px] text-slate-400">
+                Creative Hub
+              </p>
             </div>
-          )}
-        </div>
-      </div>
+          </Link>
 
-      {/* Mobile Menu */}
-      {mobileMenu && (
-        <div className="lg:hidden px-4 pb-4">
-          <div className="bg-[#0b1020] border border-white/10 rounded-2xl p-4 flex flex-col gap-2">
+          {/* Desktop Menu */}
+          <div className="hidden lg:flex items-center gap-8">
             {menuItems
               .filter((item) => (item.auth ? user : true))
               .map((item) => (
                 <Link
                   key={item.path}
                   href={item.path}
-                  onClick={() => setMobileMenu(false)}
-                  className={`px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+                  className={`relative text-sm font-medium transition-all duration-300 group ${
                     pathname === item.path
-                      ? "bg-gradient-to-r from-violet-600 to-blue-600 text-white"
-                      : "text-slate-300 hover:bg-violet-500/10 hover:text-violet-400"
+                      ? "text-white"
+                      : "text-slate-400 hover:text-white"
                   }`}
                 >
                   {item.label}
+
+                  <span
+                    className={`absolute -bottom-2 left-0 h-[2px] rounded-full bg-cyan-400 transition-all duration-300 ${
+                      pathname === item.path
+                        ? "w-full"
+                        : "w-0 group-hover:w-full"
+                    }`}
+                  />
                 </Link>
               ))}
+          </div>
 
-            {/* Mobile Auth Buttons */}
-            {!user && (
-              <div className="flex flex-col gap-2 mt-2">
+          {/* Right Side */}
+          <div className="flex items-center gap-3 relative">
+            {/* Theme */}
+            <div className="hidden sm:block">
+              <ThemeToggler />
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenu(!mobileMenu)}
+              className="lg:hidden w-10 h-10 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center text-white"
+            >
+              {mobileMenu ? <FaTimes /> : <FaBars />}
+            </button>
+
+            {/* User Logged In */}
+            {user ? (
+              <div className="relative">
+                <button onClick={() => setOpen(!open)} className="relative">
+                  {/* online dot */}
+                  <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 rounded-full border-2 border-[#060816] z-10" />
+
+                  <div className="p-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500">
+                    <Avatar className="w-11 h-11 border-2 border-[#060816]">
+                      <Avatar.Image
+                        alt="User"
+                        src={
+                          user?.image ||
+                          "https://img.heroui.chat/image/avatar?w=200&h=200&u=3"
+                        }
+                      />
+
+                      <Avatar.Fallback>U</Avatar.Fallback>
+                    </Avatar>
+                  </div>
+                </button>
+
+                {/* Dropdown */}
+                {open && (
+                  <div className="absolute right-0 top-16 w-56 rounded-2xl border border-white/10 bg-[#0b1020]/95 backdrop-blur-2xl shadow-2xl overflow-hidden">
+                    <div className="p-4 border-b border-white/10">
+                      <h2 className="text-sm font-semibold text-white">
+                        {user?.name || "User"}
+                      </h2>
+
+                      <p className="text-xs text-slate-400 truncate">
+                        {user?.email}
+                      </p>
+                    </div>
+
+                    <div className="p-2">
+                      <Link
+                        href="/profile"
+                        onClick={() => setOpen(false)}
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-slate-300 hover:bg-white/5 transition"
+                      >
+                        <FaUserAstronaut />
+                        Profile
+                      </Link>
+
+                      <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-red-400 hover:bg-red-500/10 transition"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              /* Auth Buttons */
+              <div className="hidden sm:flex items-center gap-3">
                 <Link
                   href="/login"
-                  onClick={() => setMobileMenu(false)}
-                  className="px-4 py-3 text-center rounded-xl bg-white/5 border border-white/10 text-slate-200"
+                  className="px-5 py-2.5 rounded-2xl border border-white/10 bg-white/5 text-sm text-slate-200 hover:bg-white/10 transition"
                 >
                   Login
                 </Link>
 
                 <Link
                   href="/register"
-                  onClick={() => setMobileMenu(false)}
-                  className="px-4 py-3 text-center rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 text-white"
+                  className="px-5 py-2.5 rounded-2xl bg-white text-black text-sm font-semibold hover:scale-[1.03] transition"
                 >
-                  Register
+                  Get Started
                 </Link>
               </div>
             )}
           </div>
         </div>
-      )}
-    </nav>
+
+        {/* Mobile Menu */}
+        {mobileMenu && (
+          <div className="lg:hidden px-4 pb-4">
+            <div className="rounded-3xl border border-white/10 bg-[#0b1020]/95 backdrop-blur-2xl p-4 flex flex-col gap-2">
+              {menuItems
+                .filter((item) => (item.auth ? user : true))
+                .map((item) => (
+                  <Link
+                    key={item.path}
+                    href={item.path}
+                    onClick={() => setMobileMenu(false)}
+                    className={`px-4 py-3 rounded-2xl text-sm font-medium transition-all duration-300 ${
+                      pathname === item.path
+                        ? "bg-white text-black"
+                        : "text-slate-300 hover:bg-white/5"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+
+              {!user && (
+                <div className="flex flex-col gap-2 pt-3">
+                  <Link
+                    href="/login"
+                    onClick={() => setMobileMenu(false)}
+                    className="px-4 py-3 text-center rounded-2xl border border-white/10 bg-white/5 text-slate-200"
+                  >
+                    Login
+                  </Link>
+
+                  <Link
+                    href="/register"
+                    onClick={() => setMobileMenu(false)}
+                    className="px-4 py-3 text-center rounded-2xl bg-white text-black font-semibold"
+                  >
+                    Get Started
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </nav>
+    </header>
   );
 };
 
