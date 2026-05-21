@@ -1,65 +1,76 @@
-📦 P-B-Assesment-9 Project Overview
+# 📦 P-B-Assessment-9 Project Overview
 
-Live Link :(https://idea-vault-client-nu.vercel.app/)
+This project is divided into two main parts:
 
-এই প্রজেক্টটি দুই ভাগে বিভক্ত:
+- 🖥️ Client (Frontend / UI)
+- ⚙️ Server (Backend / API)
 
-🖥️ Client (Frontend / UI)
-⚙️ Server (Backend / API)
-🌐 Client Repository
+---
 
-👉 https://github.com/armanvay/P-B-asserment-9-Client.git
+# 🌐 Client Side (Frontend)
 
-🚀 কী কী করা হয়েছে:
+The client side is built for user interaction and UI presentation.
 
-এই অংশটি হলো ইউজারের জন্য Frontend Application।
+## ✨ Features
 
-✨ Features:
-ব্যবহারকারী UI থেকে data দেখাতে পারে
-API থেকে ডেটা fetch করে UI তে দেখানো
-Login / Authentication (যদি থাকে)
-Form submit করে server এ data পাঠানো
-Responsive design (mobile + desktop support)
-🔗 Server এর সাথে কানেকশন:
+- Display data dynamically in the UI
+- Fetch data from API and render it on the frontend
+- User Login & Authentication system
+- Submit forms and send data to the server
+- Fully responsive design for both mobile and desktop devices
 
-Client সরাসরি backend API call করে data নেয় এবং UI render করে।
+## 🔗 Client & Server Connection
 
-🛠️ Server Repository
+The client application communicates directly with the backend API to fetch, manage, and display data in real time.
 
-👉 https://github.com/armanvay/P-B-asserment-9-Server.git
+---
 
-🚀 কী কী করা হয়েছে:
+# 🛠️ Server Side (Backend / API)
 
-এটা হলো পুরো Backend API Server।
+The server handles all backend operations, database management, and API services.
 
-✨ Features:
-Express.js দিয়ে REST API তৈরি
-MongoDB database এর সাথে connection
-CRUD operations (Create, Read, Update, Delete)
-User / Idea / Data management API
-Authentication & JWT token verification (যদি ব্যবহার করা হয়)
-Protected routes handling
-🔐 Security:
-Token-based authentication (JWT)
-Unauthorized access block করা
-🔄 Client + Server Flow
+## ✨ Features
+
+- REST API development using Express.js
+- MongoDB database integration
+- Full CRUD Operations (Create, Read, Update, Delete)
+- User / Idea / Data management system
+- Authentication & JWT token verification
+- Protected route handling for secure access
+
+## 🔐 Security
+
+- JWT-based authentication system
+- Unauthorized access protection
+- Secure API route management
+
+---
+
+# 🔄 Client & Server Flow
+
 User (Browser)
-     ↓
-Client (React/Next.js)
-     ↓ API request
+↓
+Client Application (React / Next.js)
+↓ API Request
 Server (Express.js)
-     ↓
+↓
 MongoDB Database
-🎯 Project Purpose
 
-এই প্রজেক্টের মূল উদ্দেশ্য হলো:
+---
 
-Full Stack CRUD application তৈরি করা
-Frontend + Backend integration শেখা
-API development এবং database handling practice করা
-Authentication system implement করা
-🧠 Summary
+# 🎯 Project Purpose
 
-👉 Client = UI + User interaction
-👉 Server = API + Database logic
-👉 দুটো মিলেই Full Stack Project
+The main goals of this project are:
+
+- Build a complete Full Stack CRUD Application
+- Practice Frontend & Backend integration
+- Learn API development and database handling
+- Implement authentication and authorization systems
+
+---
+
+# 🧠 Summary
+
+- 👉 Client = User Interface + User Interaction
+- 👉 Server = API + Database Logic
+- 👉 Together they create a complete Full Stack Application
