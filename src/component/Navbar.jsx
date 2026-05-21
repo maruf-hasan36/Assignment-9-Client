@@ -3,16 +3,10 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Avatar } from "@heroui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
-import {
-  FaBars,
-  FaTimes,
-  FaPlus,
-  FaLightbulb,
-  FaUserAstronaut,
-} from "react-icons/fa";
+import { FaBars, FaTimes, FaLightbulb, FaUserAstronaut } from "react-icons/fa";
 import ThemeToggler from "@/lib/ThemeToggler";
 
 const NavbarPage = () => {
@@ -22,8 +16,30 @@ const NavbarPage = () => {
   const [open, setOpen] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
 
+  // hide navbar on scroll down
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
   const { data: session } = authClient.useSession?.() || {};
   const user = session?.user;
+
+  useEffect(() => {
+    const controlNavbar = () => {
+      if (window.scrollY > lastScrollY) {
+        setShowNavbar(false); // scrolling down
+      } else {
+        setShowNavbar(true); // scrolling up
+      }
+
+      setLastScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", controlNavbar);
+
+    return () => {
+      window.removeEventListener("scroll", controlNavbar);
+    };
+  }, [lastScrollY]);
 
   const menuItems = [
     { path: "/", label: "Home" },
@@ -44,7 +60,13 @@ const NavbarPage = () => {
   };
 
   return (
-    <header className="fixed left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl">
+    <header
+      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl transition-all duration-500 ${
+        showNavbar
+          ? "translate-y-0 opacity-100"
+          : "-translate-y-[140%] opacity-0"
+      }`}
+    >
       <nav className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#060816]/70 backdrop-blur-2xl shadow-[0_10px_60px_rgba(0,0,0,0.45)]">
         {/* Glow */}
         <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-blue-500/5 to-violet-500/5 pointer-events-none" />
@@ -109,11 +131,10 @@ const NavbarPage = () => {
               {mobileMenu ? <FaTimes /> : <FaBars />}
             </button>
 
-            {/* User Logged In */}
+            {/* User */}
             {user ? (
               <div className="relative">
                 <button onClick={() => setOpen(!open)} className="relative">
-                  {/* online dot */}
                   <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 rounded-full border-2 border-[#060816] z-10" />
 
                   <div className="p-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500">
@@ -165,7 +186,6 @@ const NavbarPage = () => {
                 )}
               </div>
             ) : (
-              /* Auth Buttons */
               <div className="hidden sm:flex items-center gap-3">
                 <Link
                   href="/login"
