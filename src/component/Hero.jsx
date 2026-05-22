@@ -34,8 +34,7 @@ const slides = [
   },
 
   {
-    image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475",
     badge: "AI & Technology",
     title1: "Turn Ideas",
     title2: "Into Reality",

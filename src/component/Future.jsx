@@ -115,7 +115,6 @@ function FeatureCard({ item, index }) {
         transition-all duration-300 cursor-default overflow-hidden
       `}
     >
-      {/* top gradient line on hover */}
       <div
         className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r ${item.accent}
           transition-opacity duration-300 ${hovered ? "opacity-100" : "opacity-0"}`}
@@ -148,7 +147,6 @@ function FeatureCard({ item, index }) {
       </h3>
       <p className="text-zinc-500 text-sm leading-relaxed">{item.desc}</p>
 
-      {/* learn more link */}
       <div
         className={`mt-5 flex items-center gap-1.5 text-xs font-medium
           bg-gradient-to-r ${item.accent} bg-clip-text text-transparent
@@ -173,13 +171,11 @@ export default function FeaturesSection() {
         }}
       />
 
-      {/* center radial glow */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="w-[600px] h-[600px] rounded-full bg-indigo-600/10 blur-[120px]" />
       </div>
 
       <div className="relative max-w-6xl mx-auto">
-        {/* header */}
         <div className="text-center mb-16">
           <span
             className="inline-block text-[10px] tracking-[0.25em] uppercase font-mono
@@ -199,14 +195,12 @@ export default function FeaturesSection() {
           </p>
         </div>
 
-        {/* cards grid */}
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
           {features.map((item, i) => (
             <FeatureCard key={i} item={item} index={i} />
           ))}
         </div>
 
-        {/* CTA */}
         <div className="mt-16 text-center">
           <button
             className="

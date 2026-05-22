@@ -2,7 +2,7 @@ import FeaturesSection from "@/component/FeaturesSection";
 import Future from "@/component/Future";
 import Hero from "@/component/Hero";
 import TrendingIdea from "@/component/TrendingIdea";
-
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (
@@ -11,7 +11,6 @@ export default function Home() {
       <TrendingIdea></TrendingIdea>
       <FeaturesSection></FeaturesSection>
       <Future></Future>
-     
     </div>
   );
 }
